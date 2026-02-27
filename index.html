@@ -2,115 +2,124 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>four mei amour</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para Mi Amor</title>
     <style>
-        /* Configuración General - Color Morado Claro */
-        body, html {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        body, html {
             width: 100%;
             height: 100%;
-            font-family: 'Arial', sans-serif;
-            scroll-behavior: smooth;
-            background-color: #f3e5f5; 
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: #f3e5f5;
+            overflow-x: hidden;
         }
 
         section {
             width: 100vw;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 40px 20px;
-            box-sizing: border-box;
-        }
-
-        /* --- PÁGINA 1: PORTADA --- */
-        #portada {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), 
-                        url('portada.jpg') no-repeat center center/cover;
-            color: white;
+            padding: 20px;
             text-align: center;
+            position: relative;
         }
 
-        h1 { font-size: 2.5rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        /* --- PORTADA MÓVIL --- */
+        #portada {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('portada.png') no-repeat center center/cover;
+            color: white;
+        }
+
+        #portada h1 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
 
         .btn-inicio {
-            padding: 15px 35px;
+            padding: 18px 40px;
             font-size: 1.2rem;
             background-color: #9c27b0;
             color: white;
             border: none;
-            border-radius: 30px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .btn-inicio:hover {
-            background-color: #7b1fa2;
-            transform: scale(1.05);
-        }
-
-        /* --- PÁGINA 2: FOTOS (ESTILO POLAROID) --- */
+        /* --- FOTOS POLAROID (AJUSTE MÓVIL) --- */
         #fotos {
             background-color: #f3e5f5;
+            justify-content: flex-start;
+            padding-top: 40px;
+            height: auto;
+            min-height: 100vh;
+        }
+
+        #fotos h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
         }
 
         .contenedor-fotos {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            max-width: 1000px;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+            max-width: 320px; /* Ancho ideal para celular */
         }
 
         .polaroid {
             background: white;
-            padding: 15px 15px 40px 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            border-radius: 2px;
-            text-align: center;
+            padding: 12px 12px 35px 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transform: rotate(-2deg);
+        }
+
+        .polaroid:nth-child(even) {
+            transform: rotate(2deg);
         }
 
         .polaroid img {
-            width: 250px;
-            height: 250px;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1/1;
             object-fit: cover;
             display: block;
         }
 
         .texto-foto {
-            margin-top: 15px;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin-top: 12px;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.5rem;
             color: #4a148c;
-            font-size: 1.2rem;
         }
 
-        /* --- PÁGINA 3: CARTA --- */
+        /* --- CARTA --- */
         #carta {
-            background-color: #f3e5f5;
+            padding-bottom: 50px;
         }
 
         .hoja-carta {
             background: white;
-            padding: 40px;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            padding: 35px 25px;
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             line-height: 1.6;
-            color: #333;
-            border-left: 5px solid #ab47bc;
-        }
-
-        .hoja-carta h2 {
-            color: #7b1fa2;
-            margin-top: 0;
+            text-align: left;
+            font-size: 1.1rem;
         }
 
         .footer-link {
@@ -118,78 +127,64 @@
             text-decoration: none;
             color: #9c27b0;
             font-weight: bold;
+            font-size: 1rem;
         }
 
-        /* Reproductor invisible */
-        #musica-fondo {
-            display: none;
-        }
-
-        @media (max-width: 600px) {
-            .polaroid img { width: 80vw; height: 80vw; }
-        }
+        #miMusica { display: none; }
     </style>
 </head>
 <body>
 
     <audio id="miMusica" loop>
         <source src="musica.mp3" type="audio/mpeg">
-        Tu navegador no soporta el audio.
     </audio>
 
     <section id="portada">
-        <h1>Holaa Mi Amoooor<3 </h1>
+        <h1>Holaa Mi Amoooor <3</h1>
         <a href="#fotos" class="btn-inicio" onclick="reproducir()">Toca Aquí!</a>
     </section>
 
     <section id="fotos">
-        <h2 style="color: #6a1b9a; margin-bottom: 40px;"> :3 </h2>
-        
+        <h2>:3</h2>
         <div class="contenedor-fotos">
             <div class="polaroid">
-                <img src="foto 1.jpg" alt="Foto 1">
-                <div class="texto-foto">Nuestros Ojos<3 </div>
+                <img src="foto 1.jpg">
+                <div class="texto-foto">Nuestros Ojos 🫰</div>
             </div>
-
             <div class="polaroid">
-                <img src="foto 2.jpg" alt="Foto 2">
-                <div class="texto-foto">Tú Sonrisa</div>
+                <img src="foto 2.jpg">
+                <div class="texto-foto">Tú Sonrisa<3</div>
             </div>
-
             <div class="polaroid">
-                <img src="foto 3.jpg" alt="Foto 3">
+                <img src="foto 3.jpg">
                 <div class="texto-foto">Tú Carita Linda 💗</div>
             </div>
         </div>
-
-        <a href="#carta" class="footer-link" style="margin-top: 50px;">Leer carta ↓</a>
+        <a href="#carta" class="footer-link">💗 ↓</a>
     </section>
 
     <section id="carta">
         <div class="hoja-carta">
-            <h2>Holaa, buen día</h2>
+            <h2 style="color: #7b1fa2; margin-bottom: 15px;">Holaa, buen díaa</h2>
             <p>Mi amor, no sabes cuánto te amo, te amo en todo momento.
 Pensar en tu nombre es algo que me transmite una calma y tranquilidad, es el recuerdo de la mujer que amo con todo mi corazón.
 Tus ojos que son el tesoro más preciado que he visto en mi vida, la luz que ilumina mi vida.
 Tu sonrisa que me mata de amor cada vez que la veo.
 Eres tú mi amor, solo tú, la mujer que amo y que quiero amar siempre sin ningún impedimento, tomar tu mano, besarla, besar tus labios son una experiencia tan maravillosa que no quiero que me falten algún día, el solo pensarte hace mis días más felices, te amo hoy, mañana y siempre mi niña tan linda, te amo mucho 💗</p>
-            <p>Gracias por ser parte de mi vida<3 </p>
-            <p style="text-align: right; font-weight: bold; margin-top: 20px;">
-                Con cariño,<br>
+            <p style="margin-top: 15px;">Gracias por estar en mi vida.</p>
+            <p style="text-align: right; font-weight: bold; margin-top: 25px; color: #7b1fa2;">
+                Con todo mi amor,<br>
                 Josue.
             </p>
         </div>
-        <a href="#portada" class="footer-link">↑ Volver al inicio</a>
+        <a href="#portada" class="footer-link">↑ Volver al inicio</a>en 
     </section>
 
     <script>
         function reproducir() {
             var audio = document.getElementById("miMusica");
-            audio.play().catch(function(error) {
-                console.log("El navegador bloqueó la reproducción automática: ", error);
-            });
+            audio.play();
         }
     </script>
-
 </body>
 </html>
